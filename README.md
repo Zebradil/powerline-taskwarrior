@@ -14,17 +14,6 @@ Requirements
 
 The Taskwarrior segment requires [task][2] of version 2.4.2 or higher.
 
-<div style="display:none">
-Installation
-------------
-
-Installing the Taskwarrior segment can be done with pip:
-
-```txt
-pip install powerline-taskwarrior
-```
-</div>
-
 License
 -------
 
