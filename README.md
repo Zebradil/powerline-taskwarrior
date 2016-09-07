@@ -23,6 +23,16 @@ Installing the Taskwarrior segment can be done with pip:
 pip install powerline-taskwarrior
 ```
 
+Then you can activate the Taskwarrior segment by adding it to your segment configuration,
+for example in `~/.config/powerline/themes/shell/default.json`:
+
+```json
+{
+    "function": "powerline_taskwarrior.taskwarrior",
+    "priority": 70
+}
+```
+
 License
 -------
 
