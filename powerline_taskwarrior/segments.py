@@ -34,8 +34,12 @@ class TaskwarriorSegment(Segment):
 
         if active_task:
             segments.append({
-                'contents': active_task,
-                'highlight_groups': ['information:priority'],
+                'contents': active_task['id'],
+                'highlight_groups': ['critical:failure'],
+            })
+            segments.append({
+                'contents': active_task['description'],
+                'highlight_groups': ['critical:success'],
             })
 
         return segments
@@ -54,15 +58,29 @@ class TaskwarriorSegment(Segment):
         if context:
             context = context.pop(0)
 
-        description, err = self.execute(pl, [task_alias, '+ACTIVE', '_unique', 'description'])
+        # Command above shows only ID and description sorted by urgency
+        # task rc.verbose: rc.report.next.columns:id,description rc.report.next.labels:1,2 +ACTIVE
+        command_parts = [
+            task_alias,
+            'rc.verbose:',
+            'rc.report.next.columns:id,description',
+            'rc.report.next.labels:1,2', '+ACTIVE'
+        ]
+        id_and_description, err = self.execute(pl, command_parts)
 
         if err:
             return
 
-        if description:
-            description = description.pop(0)
+        if id_and_description:
+            task_id, description = id_and_description.pop(0).split(' ', 1)
+            active_task = {
+                'id': task_id,
+                'description': description,
+            }
+        else:
+            active_task = None
 
-        return self.build_segments(context, description)
+        return self.build_segments(context, active_task)
 
 
 taskwarrior = with_docstring(TaskwarriorSegment(),
