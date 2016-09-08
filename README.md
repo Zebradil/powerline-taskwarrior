@@ -23,6 +23,12 @@ Installing the Taskwarrior segment can be done with pip:
 pip install powerline-taskwarrior
 ```
 
+On Debian (testing or unstable), installation can be performed with apt:
+
+```txt
+apt install python-powerline-taskwarrior
+```
+
 Then you can activate the Taskwarrior segment by adding it to your segment configuration,
 for example in `~/.config/powerline/themes/shell/default.json`:
 
