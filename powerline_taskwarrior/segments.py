@@ -8,7 +8,7 @@ from powerline.theme import requires_segment_info
 
 
 @requires_segment_info
-class TaskwarriorSegment(Segment):
+class TaskwarriorBaseSegment(Segment):
     def execute(self, pl, command):
         pl.debug('Executing command: %s' % ' '.join(command))
 
@@ -22,27 +22,9 @@ class TaskwarriorSegment(Segment):
 
         return out.splitlines(), err.splitlines()
 
-    def build_segments(self, context, active_task):
-
-        segments = []
-
-        if context:
-            segments.append({
-                'contents': context,
-                'highlight_groups': ['information:regular'],
-            })
-
-        if active_task:
-            segments.append({
-                'contents': active_task['id'],
-                'highlight_groups': ['critical:failure'],
-            })
-            segments.append({
-                'contents': active_task['description'],
-                'highlight_groups': ['critical:success'],
-            })
-
-        return segments
+    def build_segments(self, pl, task_alias):
+        pl.debug('Nothing to do')
+        return []
 
     def __call__(self, pl, segment_info, task_alias='task'):
         pl.debug('Running Taskwarrior: ' + task_alias)
@@ -50,13 +32,27 @@ class TaskwarriorSegment(Segment):
         if not task_alias:
             return
 
+        return self.build_segments(pl, task_alias)
+
+
+class ContextSegment(TaskwarriorBaseSegment):
+    def build_segments(self, pl, task_alias):
+        pl.debug('Build Context segment')
+
         context, err = self.execute(pl, [task_alias, '_get', 'rc.context'])
 
-        if err:
-            return
+        if not err and context:
+            return [{
+                'contents': context.pop(0),
+                'highlight_groups': ['information:regular'],
+            }]
+        else:
+            return []
 
-        if context:
-            context = context.pop(0)
+
+class ActiveTaskSegment(TaskwarriorBaseSegment):
+    def build_segments(self, pl, task_alias):
+        pl.debug('Build ActiveTask segment')
 
         # Command above shows only ID and description sorted by urgency
         # task rc.verbose: rc.report.next.columns:id,description rc.report.next.labels:1,2 +ACTIVE
@@ -68,25 +64,51 @@ class TaskwarriorSegment(Segment):
         ]
         id_and_description, err = self.execute(pl, command_parts)
 
-        if err:
-            return
-
-        if id_and_description:
+        if not err and id_and_description:
             task_id, description = id_and_description.pop(0).split(' ', 1)
-            active_task = {
-                'id': task_id,
-                'description': description,
-            }
+
+            segments = [{
+                'contents': task_id,
+                'highlight_groups': ['critical:failure'],
+            }, {
+                'contents': description,
+                'highlight_groups': ['critical:success'],
+            }]
+
+            return segments
         else:
-            active_task = None
-
-        return self.build_segments(context, active_task)
+            return []
 
 
-taskwarrior = with_docstring(TaskwarriorSegment(),
-                             '''Return information from Taskwarrior task manager.
+class TaskwarriorSegment(TaskwarriorBaseSegment):
+    def build_segments(self, pl, task_alias):
+        pl.debug('Build ActiveTask + Context segment')
+        return ActiveTaskSegment()(pl, task_alias) + ContextSegment()(pl, task_alias)
 
-                             It will show current context and active task (first of alphabetical order).
 
-                             Highlight groups used: ``information:priority``, ``information:regular``
-                             ''')
+taskwarrior = with_docstring(
+    TaskwarriorSegment(),
+    '''Return information from Taskwarrior task manager.
+
+    It will show current context and active task (first by urgency order).
+
+    Highlight groups used: ``critical:failure``, ``critical:success``, ``information:regular``
+    ''')
+
+context = with_docstring(
+    ContextSegment(),
+    '''Return information from Taskwarrior task manager.
+
+    It will show current context.
+
+    Highlight groups used: ``information:regular``
+    ''')
+
+active_task = with_docstring(
+    ActiveTaskSegment(),
+    '''Return information from Taskwarrior task manager.
+
+    It will show active task (first by urgency order).
+
+    Highlight groups used: ``critical:failure``, ``critical:success``
+    ''')
