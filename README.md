@@ -1,31 +1,48 @@
 Powerline Taskwarrior
 ===================
 
-A [Powerline][1] segment for showing information from [Taskwarrior][2] task manager.
+[Powerline][1] segments for showing information from the [Taskwarrior][2] task manager.
 
 By [German Lashevich][3].
 
-It will show current context and active task (first of alphabetical order).
+It will show current context and the most urgent active task.
 
 ![screenshot][4]
 
 Requirements
 ------------
 
-The Taskwarrior segment requires [task][2] of version 2.4.2 or higher.
+The Taskwarrior segments require [task][2] of version 2.4.2 or higher.
 
 Installation
 ------------
 
-Installing the Taskwarrior segment can be done with pip:
+Installing the Taskwarrior segments can be done with pip:
 
 ```txt
 pip install powerline-taskwarrior
 ```
 
-Then you can activate the Taskwarrior segment by adding it to your segment configuration,
+Then you can activate the Taskwarrior segments by adding it to your segment configuration,
 for example in `~/.config/powerline/themes/shell/default.json`:
 
+segment displays current context name
+```json
+{
+    "function": "powerline_taskwarrior.context",
+    "priority": 70
+}
+```
+
+segment displays the most urgent active task
+```json
+{
+    "function": "powerline_taskwarrior.active_task",
+    "priority": 70
+}
+```
+
+obsolete segment displays both of listed above
 ```json
 {
     "function": "powerline_taskwarrior.taskwarrior",
