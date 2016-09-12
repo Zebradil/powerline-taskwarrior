@@ -51,7 +51,15 @@ class ContextSegment(TaskwarriorBaseSegment):
 
 
 class ActiveTaskSegment(TaskwarriorBaseSegment):
-    def build_segments(self, pl, task_alias, description_length=40):
+    def __call__(self, pl, segment_info, task_alias='task', description_length=40):
+        pl.debug('Running Taskwarrior: ' + task_alias)
+
+        if not task_alias:
+            return
+
+        return self.build_segments(pl, task_alias, description_length)
+
+    def build_segments(self, pl, task_alias, description_length=0):
         pl.debug('Build ActiveTask segment')
 
         # Command above shows only ID and description sorted by urgency
@@ -67,7 +75,7 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
         if not err and id_and_description:
             task_id, description = id_and_description.pop(0).split(' ', 1)
 
-            if len(description) > description_length:
+            if description_length and len(description) > description_length:
                 parts = []
                 for part in description.split():
                     if len(' '.join(parts + [part])) < description_length:
