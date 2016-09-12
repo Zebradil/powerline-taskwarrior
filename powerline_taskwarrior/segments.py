@@ -67,15 +67,13 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
         if not err and id_and_description:
             task_id, description = id_and_description.pop(0).split(' ', 1)
 
-            segments = [{
+            return [{
                 'contents': task_id,
                 'highlight_groups': ['critical:failure'],
             }, {
                 'contents': description,
                 'highlight_groups': ['critical:success'],
             }]
-
-            return segments
         else:
             return []
 
