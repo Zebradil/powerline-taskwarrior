@@ -1,5 +1,4 @@
 # vim:fileencoding=utf-8:noet
-
 import string
 from subprocess import PIPE, Popen
 
@@ -42,12 +41,14 @@ class ContextSegment(TaskwarriorBaseSegment):
         context_name, err = self.execute(pl, [task_alias, '_get', 'rc.context'])
 
         if not err and context_name:
-            return [{
-                'contents': context_name.pop(0),
-                'highlight_groups': ['information:regular'],
-            }]
-        else:
-            return []
+            context_name = context_name.pop(0)
+            if context_name:
+                return [{
+                    'contents': context_name,
+                    'highlight_groups': ['information:regular'],
+                }]
+
+        return []
 
 
 class ActiveTaskSegment(TaskwarriorBaseSegment):
