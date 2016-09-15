@@ -76,24 +76,27 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
         if not err and id_and_description:
             task_id, description = id_and_description.pop(0).split(' ', 1)
 
-            if description_length and len(description) > description_length:
-                parts = []
-                for part in description.split():
-                    if len(' '.join(parts + [part])) < description_length:
-                        parts.append(part)
-                    else:
-                        description = ' '.join(parts) + '…'
-                        break
-
             return [{
                 'contents': task_id,
                 'highlight_groups': ['critical:failure'],
             }, {
-                'contents': description,
+                'contents': self.cut_description(description, description_length),
                 'highlight_groups': ['critical:success'],
             }]
         else:
             return []
+
+    @staticmethod
+    def cut_description(description, length):
+        if length and len(description) > length:
+            parts = []
+            for part in description.split():
+                if len(' '.join(parts + [part])) < length:
+                    parts.append(part)
+                else:
+                    return ' '.join(parts) + '…'
+        else:
+            return description
 
 
 class TaskwarriorSegment(TaskwarriorBaseSegment):
