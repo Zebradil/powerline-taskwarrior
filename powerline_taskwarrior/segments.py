@@ -52,6 +52,9 @@ class ContextSegment(TaskwarriorBaseSegment):
 
 
 class ActiveTaskSegment(TaskwarriorBaseSegment):
+    description = None
+    task_id = None
+
     def __call__(self, pl, segment_info, task_alias='task', description_length=40):
         pl.debug('Running Taskwarrior: ' + task_alias)
 
@@ -74,24 +77,35 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
         id_and_description, err = self.execute(pl, command_parts)
 
         if not err and id_and_description:
-            task_id, description = id_and_description.pop(0).split(' ', 1)
+            self.task_id, self.description = id_and_description.pop(0).split(' ', 1)
 
             return [{
-                'contents': task_id,
+                'name': 'active_task_id',
+                'contents': self.task_id,
                 'highlight_groups': ['critical:failure'],
             }, {
-                'contents': self.cut_description(description, description_length),
+                'name': 'active_task_description',
+                'contents': self.cut_description(self.description, description_length),
                 'highlight_groups': ['critical:success'],
             }]
         else:
             return []
+
+    def truncate(self, pl, amount, segment, description_length=0, **kwargs):
+        if segment['name'] == 'active_task_id':
+            return segment['contents']
+
+        length = segment['_len'] - amount
+        if description_length and description_length < length:
+            length = description_length
+        return self.cut_description(self.description, length)
 
     @staticmethod
     def cut_description(description, length):
         if length and len(description) > length:
             parts = []
             for part in description.split():
-                if len(' '.join(parts + [part])) < length:
+                if len(' '.join(parts + [part])) < length - 1:
                     parts.append(part)
                 else:
                     return ' '.join(parts) + '…'
