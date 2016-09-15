@@ -56,6 +56,22 @@ obsolete segment displays both of listed above
 }
 ```
 
+Configuration
+-------------
+If you have custom name for `task`, you should specify it in segment configuration.
+`powerline_taskwarrior.active_task` segment accepts `description_length` parameter.
+It's maximum length of description. If the description is longer, it is truncated by words.
+```json
+{
+    "function": "powerline_taskwarrior.active_task",
+    "priority": 70,
+    "args": {
+        "task": "taskwarrior",
+        "description_length": 40
+    }
+}
+```
+
 License
 -------
 
