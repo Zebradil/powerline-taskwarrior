@@ -63,7 +63,7 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
     def build_segments(self, pl, task_alias, description_length=0):
         pl.debug('Build ActiveTask segment')
 
-        # Command above shows only ID and description sorted by urgency
+        # Command below shows only ID and description sorted by urgency
         # task rc.verbose: rc.report.next.columns:id,description rc.report.next.labels:1,2 +ACTIVE
         command_parts = [
             task_alias,
