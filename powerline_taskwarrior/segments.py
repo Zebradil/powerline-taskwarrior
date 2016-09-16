@@ -118,13 +118,37 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
             return id_and_description.pop(0).split(' ', 1)
 
     def get_command_parts(self):
-        # Command below shows only ID and description sorted by urgency
-        # task rc.verbose: rc.report.next.columns:id,description rc.report.next.labels:1,2 +ACTIVE
         return [
             self.task_alias,
             'rc.verbose:',
             'rc.report.next.columns:id,description',
-            'rc.report.next.labels:1,2', '+ACTIVE'
+            'rc.report.next.labels:1,2',
+            'limit:1',
+            '+ACTIVE',
+            'next'
+        ]
+
+
+class NextTaskSegment(ActiveTaskSegment):
+    def __call__(self, pl, segment_info, task_alias='task', description_length=40, ignore_active=False):
+        self.pl = pl
+        self.task_alias = task_alias
+        if ignore_active or not self.exists_active_task():
+            return super().__call__(pl, segment_info, task_alias, description_length)
+        else:
+            return []
+
+    def exists_active_task(self):
+        return self.execute(self.get_command_parts())
+
+    def get_command_parts(self):
+        return [
+            self.task_alias,
+            'rc.verbose:',
+            'rc.report.next.columns:id,description',
+            'rc.report.next.labels:1,2',
+            'limit:1',
+            'next'
         ]
 
 
@@ -157,6 +181,15 @@ active_task = with_docstring(
     '''Return information from Taskwarrior task manager.
 
     It will show active task (first by urgency order).
+
+    Highlight groups used: ``critical:failure``, ``critical:success``
+    ''')
+
+next_task = with_docstring(
+    NextTaskSegment(),
+    '''Return information from Taskwarrior task manager.
+
+    It will show next task (first by urgency order).
 
     Highlight groups used: ``critical:failure``, ``critical:success``
     ''')
