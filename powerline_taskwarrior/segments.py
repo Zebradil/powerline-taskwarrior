@@ -8,37 +8,42 @@ from powerline.theme import requires_segment_info
 
 @requires_segment_info
 class TaskwarriorBaseSegment(Segment):
-    def execute(self, pl, command):
-        pl.debug('Executing command: %s' % ' '.join(command))
+    pl = None
+    task_alias = 'task'
+
+    def execute(self, command):
+        self.pl.debug('Executing command: %s' % ' '.join(command))
 
         proc = Popen(command, stdout=PIPE, stderr=PIPE)
         out, err = [item.decode('utf-8') for item in proc.communicate()]
 
         if out:
-            pl.debug('Command output: %s' % out.strip(string.whitespace))
+            self.pl.debug('Command output: %s' % out.strip(string.whitespace))
         if err:
-            pl.debug('Command errors: %s' % err.strip(string.whitespace))
+            self.pl.debug('Command errors: %s' % err.strip(string.whitespace))
 
         return out.splitlines(), err.splitlines()
 
-    def build_segments(self, pl, task_alias):
-        pl.debug('Nothing to do')
+    def build_segments(self):
+        self.pl.debug('Nothing to do')
         return []
 
     def __call__(self, pl, segment_info, task_alias='task'):
+        self.pl = pl
+        self.task_alias = task_alias
         pl.debug('Running Taskwarrior: ' + task_alias)
 
         if not task_alias:
             return
 
-        return self.build_segments(pl, task_alias)
+        return self.build_segments()
 
 
 class ContextSegment(TaskwarriorBaseSegment):
-    def build_segments(self, pl, task_alias):
-        pl.debug('Build Context segment')
+    def build_segments(self):
+        self.pl.debug('Build Context segment')
 
-        context_name, err = self.execute(pl, [task_alias, '_get', 'rc.context'])
+        context_name, err = self.execute([self.task_alias, '_get', 'rc.context'])
 
         if not err and context_name:
             context_name = context_name.pop(0)
@@ -56,17 +61,19 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
     task_id = None
 
     def __call__(self, pl, segment_info, task_alias='task', description_length=40):
+        self.pl = pl
+        self.task_alias = task_alias
         pl.debug('Running Taskwarrior: ' + task_alias)
 
         if not task_alias:
             return
 
-        return self.build_segments(pl, task_alias, description_length)
+        return self.build_segments(description_length)
 
-    def build_segments(self, pl, task_alias, description_length=0):
-        pl.debug('Build ActiveTask segment')
+    def build_segments(self, description_length=0):
+        self.pl.debug('Build ActiveTask segment')
 
-        task = self.get_task(pl, task_alias)
+        task = self.get_task()
 
         if task:
             self.task_id, self.description = task
@@ -104,18 +111,17 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
         else:
             return description
 
-    def get_task(self, pl, task_alias):
-        id_and_description, err = self.execute(pl, self.get_command_parts(task_alias))
+    def get_task(self):
+        id_and_description, err = self.execute(self.get_command_parts())
 
         if not err and id_and_description:
             return id_and_description.pop(0).split(' ', 1)
 
-    @staticmethod
-    def get_command_parts(task_alias):
+    def get_command_parts(self):
         # Command below shows only ID and description sorted by urgency
         # task rc.verbose: rc.report.next.columns:id,description rc.report.next.labels:1,2 +ACTIVE
         return [
-            task_alias,
+            self.task_alias,
             'rc.verbose:',
             'rc.report.next.columns:id,description',
             'rc.report.next.labels:1,2', '+ACTIVE'
@@ -123,9 +129,9 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
 
 
 class TaskwarriorSegment(TaskwarriorBaseSegment):
-    def build_segments(self, pl, task_alias):
-        pl.debug('Build ActiveTask + Context segment')
-        return ActiveTaskSegment()(pl, task_alias) + ContextSegment()(pl, task_alias)
+    def build_segments(self):
+        self.pl.debug('Build ActiveTask + Context segment')
+        return ActiveTaskSegment()(self.pl, self.task_alias) + ContextSegment()(self.pl, self.task_alias)
 
 
 taskwarrior = with_docstring(
