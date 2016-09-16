@@ -66,18 +66,10 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
     def build_segments(self, pl, task_alias, description_length=0):
         pl.debug('Build ActiveTask segment')
 
-        # Command below shows only ID and description sorted by urgency
-        # task rc.verbose: rc.report.next.columns:id,description rc.report.next.labels:1,2 +ACTIVE
-        command_parts = [
-            task_alias,
-            'rc.verbose:',
-            'rc.report.next.columns:id,description',
-            'rc.report.next.labels:1,2', '+ACTIVE'
-        ]
-        id_and_description, err = self.execute(pl, command_parts)
+        task = self.get_task(pl, task_alias)
 
-        if not err and id_and_description:
-            self.task_id, self.description = id_and_description.pop(0).split(' ', 1)
+        if task:
+            self.task_id, self.description = task
 
             return [{
                 'name': 'active_task_id',
@@ -111,6 +103,23 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
                     return ' '.join(parts) + '…'
         else:
             return description
+
+    def get_task(self, pl, task_alias):
+        id_and_description, err = self.execute(pl, self.get_command_parts(task_alias))
+
+        if not err and id_and_description:
+            return id_and_description.pop(0).split(' ', 1)
+
+    @staticmethod
+    def get_command_parts(task_alias):
+        # Command below shows only ID and description sorted by urgency
+        # task rc.verbose: rc.report.next.columns:id,description rc.report.next.labels:1,2 +ACTIVE
+        return [
+            task_alias,
+            'rc.verbose:',
+            'rc.report.next.columns:id,description',
+            'rc.report.next.labels:1,2', '+ACTIVE'
+        ]
 
 
 class TaskwarriorSegment(TaskwarriorBaseSegment):
