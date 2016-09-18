@@ -5,7 +5,7 @@ from setuptools import setup
 setup(
     name='powerline-taskwarrior',
     description='Powerline segments for showing information from the Taskwarrior task manager',
-    version='0.3.1',
+    version='0.4',
     keywords='powerline taskwarrior context prompt',
     license='MIT',
     author='German Lashevich',
