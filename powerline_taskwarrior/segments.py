@@ -139,7 +139,8 @@ class NextTaskSegment(ActiveTaskSegment):
             return []
 
     def exists_active_task(self):
-        return self.execute(self.get_command_parts())
+        out, err = self.execute(super().get_command_parts())
+        return bool(not err and out)
 
     def get_command_parts(self):
         return [
