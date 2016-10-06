@@ -1,6 +1,8 @@
 Powerline Taskwarrior
 ===================
 
+[![license](https://img.shields.io/github/license/kafene/netscape-bookmark-parser.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+
 The set of the [Powerline][1] segments for showing information from the [Taskwarrior][2] task manager.
 
 It will show current context and the most urgent active task.
