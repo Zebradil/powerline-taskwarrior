@@ -81,6 +81,18 @@ always, regardless of existence active task.
     }
 }
 ```
+You can add you custom color set by adding:
+```json
+{
+  "taskwarrior:context":       "information:regular",
+  "taskwarrior:active_id":     { "bg": "mediumgreen", "fg": "black", "attrs": [] },
+  "taskwarrior:active_desc":   { "bg": "green", "fg": "black", "attrs": [] },
+  "taskwarrior:next_id":       { "bg": "brightyellow", "fg": "black", "attrs": [] },
+  "taskwarrior:next_desc":     { "bg": "yellow", "fg": "black", "attrs": [] }
+}
+
+```
+to your colorschemes.
 
 License
 -------
