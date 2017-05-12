@@ -21,4 +21,4 @@
 
 Alias for deployment actions:
 
-  alias rebuild='$( read version; python3 setup.py sdist && pip3 uninstall -y powerline-taskwarrior && pip3 install dist/powerline-taskwarrior-$version.tar.gz --upgrade && powerline shell right -w 60 ) <<< '
+  alias rebuild='( read version; python3 setup.py sdist && pip3 uninstall -y powerline-taskwarrior && pip3 install dist/powerline-taskwarrior-$version.tar.gz --upgrade && powerline shell right -w 60 ) <<< '
