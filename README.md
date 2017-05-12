@@ -81,6 +81,7 @@ always, regardless of existence active task.
     }
 }
 ```
+
 You can add you custom color set by adding:
 ```json
 {
@@ -92,7 +93,8 @@ You can add you custom color set by adding:
 }
 
 ```
-to your colorschemes.
+to your colorschemes (`.config/powerline/colorschemes/default.json`).
+See [powerline colorschemes docs][6].
 
 License
 -------
@@ -106,3 +108,4 @@ By [German Lashevich][3].
 [3]: https://github.com/zebradil
 [4]: https://github.com/zebradil/powerline-taskwarrior/blob/master/screenshot.png
 [5]: https://github.com/zebradil/powerline-taskwarrior/blob/master/LICENSE
+[6]: http://powerline.readthedocs.io/en/master/configuration/reference.html#colorschemes
