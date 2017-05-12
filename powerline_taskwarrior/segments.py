@@ -50,7 +50,7 @@ class ContextSegment(TaskwarriorBaseSegment):
             if context_name:
                 return [{
                     'contents': context_name,
-                    'highlight_groups': ['information:regular'],
+                    'highlight_groups': ['taskwarrior:context'],
                 }]
 
         return []
@@ -60,9 +60,10 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
     description = None
     task_id = None
 
-    def __call__(self, pl, segment_info, task_alias='task', description_length=40):
+    def __call__(self, pl, segment_info, task_alias='task', description_length=40, state="active"):
         self.pl = pl
         self.task_alias = task_alias
+        self.state = state
         pl.debug('Running Taskwarrior: ' + task_alias)
 
         if not task_alias:
@@ -81,11 +82,15 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
             return [{
                 'name': 'active_task_id',
                 'contents': self.task_id,
-                'highlight_groups': ['critical:failure'],
+                'highlight_groups': [
+                    'taskwarrior:{state}_id'.format(state=self.state)
+                 ],
             }, {
                 'name': 'active_task_description',
                 'contents': self.cut_description(self.description, description_length),
-                'highlight_groups': ['critical:success'],
+                'highlight_groups': [
+                    'taskwarrior:{state}_desc'.format(state=self.state)
+                ],
             }]
         else:
             return []
@@ -134,7 +139,7 @@ class NextTaskSegment(ActiveTaskSegment):
         self.pl = pl
         self.task_alias = task_alias
         if ignore_active or not self.exists_active_task():
-            return super().__call__(pl, segment_info, task_alias, description_length)
+            return super().__call__(pl, segment_info, task_alias, description_length, state="next")
         else:
             return []
 
@@ -165,7 +170,7 @@ taskwarrior = with_docstring(
 
     It will show current context and active task (first by urgency order).
 
-    Highlight groups used: ``critical:failure``, ``critical:success``, ``information:regular``
+    Highlight groups used: ``taskwarrior:active_id``, ``taskwarrior:active_desc``, ``taskwarrior:context``
     ''')
 
 context = with_docstring(
@@ -183,7 +188,7 @@ active_task = with_docstring(
 
     It will show active task (first by urgency order).
 
-    Highlight groups used: ``critical:failure``, ``critical:success``
+    Highlight groups used: ``taskwarrior:active_id``, ``taskwarrior:active_desc``
     ''')
 
 next_task = with_docstring(
@@ -192,5 +197,5 @@ next_task = with_docstring(
 
     It will show next task (first by urgency order).
 
-    Highlight groups used: ``critical:failure``, ``critical:success``
+    Highlight groups used: ``taskwarrior:next_id``, ``taskwarrior:next_desc``
     ''')
