@@ -1,10 +1,12 @@
 sudo: required
 
+language: generic
+
 services:
   - docker
 
 before_install:
-  - cd test && docker build -t taskwarrior .
+  - docker build -t taskwarrior test
 
 install: true
 
