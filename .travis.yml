@@ -1,6 +1,6 @@
 sudo: required
 
-language: generic
+language: python
 
 services:
   - docker
