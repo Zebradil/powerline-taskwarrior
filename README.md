@@ -2,8 +2,8 @@ Powerline Taskwarrior
 ===================
 
 [![Build Status](https://travis-ci.org/Zebradil/powerline-taskwarrior.svg?branch=master)](https://travis-ci.org/Zebradil/powerline-taskwarrior)
-
-[![license](https://img.shields.io/github/license/kafene/netscape-bookmark-parser.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![PyPI](https://img.shields.io/pypi/v/powerline-taskwarrior.svg)](https://pypi.python.org/pypi/powerline-taskwarrior)
+[![PyPI](https://img.shields.io/pypi/l/powerline-taskwarrior.svg)](https://opensource.org/licenses/MIT)
 
 The set of the [Powerline][1] segments for showing information from the [Taskwarrior][2] task manager.
 
