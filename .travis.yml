@@ -1,0 +1,12 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - cd test && docker build -t taskwarrior .
+
+install: true
+
+script:
+  - "docker run -v `pwd`:/opt/powerline-taskwarrior:ro taskwarrior"
