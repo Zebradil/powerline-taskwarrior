@@ -15,6 +15,9 @@ setup(
     url='https://github.com/zebradil/powerline-taskwarrior',
     download_url='https://github.com/zebradil/powerline-taskwarrior/tarball/{version}'.format(version=version),
     packages=['powerline_taskwarrior'],
+    install_requires=[
+        'powerline-status',
+    ],
     classifiers=[
         'Environment :: Console',
         'Intended Audience :: Developers',
