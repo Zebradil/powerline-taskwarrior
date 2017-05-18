@@ -12,3 +12,13 @@ install: true
 
 script:
   - "docker run -v `pwd`:/opt/powerline-taskwarrior:ro taskwarrior"
+
+deploy:
+  provider: pypi
+  user: zebradil
+  password:
+    secure: u3hV2abN6X2yX1XcgBPW3cE2iDy6XS/tH+zteZ3UdUCqPKYUHJ5HMpuPgrcfPQBWdB1AOjhyc+Zk7ADdqD1tj5Z/uqAuDZCDT2cCr2I+yDQlC9L2k5luEAh2/tvHh62vLN8ZbEA9ayt6s/4x0f/zvdSsaojAu78Qao3LMKgRxr3iydcBoSWzROici3wO5DlxJ1uOjKscIy5H3UnyTshk+gH7AjfQ1nm7MjMEHyzJGd4J2yZTRo/CERRLmJt8qRbIsp2heY75TyPX+ljPuIptxEe8k7CMZGltGiR2L/hVq9j6nGXtr4kq0Tbz6+uF4jwxXNTjjWxZpfuv8J+xi/qg6Sv2/gfO4OSsGLcyzl4KHg1m9XQFni0Go7GHf+Q/7eUwoMN0BxG5g+xUdXa6KINO0Tefm5DX6NDOxqV6f4L1l2dEPl8B/qV+xLYiSeYwpdyVd+0kRwoq6IOUBRX9F9RBLgHqH7h9GxeJqhU/0O6fg8baMWWR195maH9Q3MVDiqo9Xu02LwmvdvydA0ijoItNQ27873SKPH2Gb28QAl155wHBnadaVwkzb7EmHPYY0T4ngTqXbpK9p0hjPVWnEEZq2YzEkmPwqdbgdqBM8OWY11By2PGT23sRrCDlhqDfwud4T6G8b3NdC4H4IbTzLJ6byUorwJXmfyXFjBVOhVjfwVY=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: Zebradil/powerline-taskwarrior
