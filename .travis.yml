@@ -11,7 +11,8 @@ before_install:
 install: true
 
 script:
-  - "docker run -v `pwd`:/opt/powerline-taskwarrior:ro taskwarrior"
+  - "docker run -v `pwd`:/opt/powerline-taskwarrior:ro -e PYTHON_VERSION=2 taskwarrior"
+  - "docker run -v `pwd`:/opt/powerline-taskwarrior:ro -e PYTHON_VERSION=3 taskwarrior"
 
 deploy:
   provider: pypi
