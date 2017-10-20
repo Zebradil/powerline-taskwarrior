@@ -139,12 +139,12 @@ class NextTaskSegment(ActiveTaskSegment):
         self.pl = pl
         self.task_alias = task_alias
         if ignore_active or not self.exists_active_task():
-            return super().__call__(pl, segment_info, task_alias, description_length, state="next")
+            return super(NextTaskSegment, self).__call__(pl, segment_info, task_alias, description_length, state="next")
         else:
             return []
 
     def exists_active_task(self):
-        out, err = self.execute(super().get_command_parts())
+        out, err = self.execute(super(NextTaskSegment, self).get_command_parts())
         return bool(not err and out)
 
     def get_command_parts(self):
