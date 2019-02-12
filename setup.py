@@ -1,14 +1,14 @@
 # vim:fileencoding=utf-8:noet
 
+import io
+from os import path
+
 from setuptools import setup
 
 version = "0.7.1"
 
-# read the contents of your README file
-from os import path
-
 this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
+with io.open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
