@@ -1,3 +1,7 @@
+Alias for deployment actions:
+
+  alias rebuild='( read version; python3 setup.py sdist && pip3 uninstall -y powerline-taskwarrior && pip3 install --user dist/powerline-taskwarrior-$version.tar.gz --upgrade && powerline shell right -w 60 ) <<< '
+
 1. Build package:
 
   python3 setup.py sdist
@@ -8,7 +12,7 @@
 
 3. Install new version (adjust version first):
 
-  pip3 install dist/powerline-taskwarrior-0.4.tar.gz --upgrade
+  pip3 install --user -U dist/powerline-taskwarrior-*.tar.gz
 
 4. Check how it works:
 
@@ -18,7 +22,3 @@
 
   python setup.py sdist upload -r pypitest
   python setup.py sdist upload -r pypi
-
-Alias for deployment actions:
-
-  alias rebuild='( read version; python3 setup.py sdist && pip3 uninstall -y powerline-taskwarrior && pip3 install dist/powerline-taskwarrior-$version.tar.gz --upgrade && powerline shell right -w 60 ) <<< '
