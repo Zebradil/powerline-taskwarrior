@@ -126,6 +126,7 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
         return [
             self.task_alias,
             'rc.verbose:',
+            'rc.hooks:off',
             'rc.report.next.columns:id,description',
             'rc.report.next.labels:1,2',
             'limit:1',
@@ -151,6 +152,7 @@ class NextTaskSegment(ActiveTaskSegment):
         return [
             self.task_alias,
             'rc.verbose:',
+            'rc.hooks:off',
             'rc.report.next.columns:id,description',
             'rc.report.next.labels:1,2',
             'limit:1',
