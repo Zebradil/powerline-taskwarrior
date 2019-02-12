@@ -20,5 +20,5 @@ Alias for deployment actions:
 
 5. Upload in test repo, then in prod repo:
 
-  python setup.py sdist upload -r pypitest
-  python setup.py sdist upload -r pypi
+  twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+  twine upload dist/*
