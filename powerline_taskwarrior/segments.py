@@ -43,7 +43,7 @@ class ContextSegment(TaskwarriorBaseSegment):
     def build_segments(self):
         self.pl.debug('Build Context segment')
 
-        context_name, err = self.execute([self.task_alias, '_get', 'rc.context'])
+        context_name, err = self.execute([self.task_alias, 'rc.hooks:off', '_get', 'rc.context'])
 
         if not err and context_name:
             context_name = context_name.pop(0)
