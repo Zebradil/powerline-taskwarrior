@@ -5,36 +5,36 @@ Powerline Taskwarrior
 [![PyPI](https://img.shields.io/pypi/v/powerline-taskwarrior.svg)](https://pypi.python.org/pypi/powerline-taskwarrior)
 [![PyPI](https://img.shields.io/pypi/l/powerline-taskwarrior.svg)](https://opensource.org/licenses/MIT)
 
-The set of the [Powerline][1] segments for showing information from the [Taskwarrior][2] task manager.
+A set of [Powerline][1] segments for showing information retrieved from [Taskwarrior][2] task manager.
 
-It will show current context and the most urgent active task.
+It shows a current context and the most urgent active task.
 
 ![screenshot][4]
 
 Requirements
 ------------
 
-The Taskwarrior segments require [task][2] of version 2.4.2 or higher.
+Taskwarrior segments require [task][2] v2.4.2 or later.
 
 Installation
 ------------
 
-Installing the Taskwarrior segments can be done with pip:
+With pip:
 
-```txt
-pip install powerline-taskwarrior
+```sh
+pip install --user -U powerline-taskwarrior
 ```
 
 On Debian (testing or unstable), installation can be performed with apt:
 
-```txt
+```sh
 apt install python-powerline-taskwarrior
 ```
 
-Then you can activate the Taskwarrior segments by adding it to your segment configuration,
+To activate Taskwarrior segments add them to your segment configuration,
 for example in `~/.config/powerline/themes/shell/default.json`:
 
-segment displays current context name
+display current context name
 
 ```json
 {
@@ -43,7 +43,7 @@ segment displays current context name
 }
 ```
 
-segment displays the most urgent active task
+display the most urgent active task
 
 ```json
 {
@@ -52,7 +52,7 @@ segment displays the most urgent active task
 }
 ```
 
-segment displays the most urgent next task
+display the most urgent next task
 
 ```json
 {
@@ -61,7 +61,7 @@ segment displays the most urgent next task
 }
 ```
 
-obsolete segment displays both of listed above
+*obsolete* segment displays both of listed above
 
 ```json
 {
@@ -73,7 +73,7 @@ obsolete segment displays both of listed above
 Configuration
 -------------
 
-If you have custom name for `task`, you should specify it in segment configuration.
+If you have a custom name for `task` command, it should be specified in the segment configuration.
 `powerline_taskwarrior.active_task` and `powerline_taskwarrior.next_task` segments accept `description_length` parameter.
 It's maximum length of description. If the description is longer, it is truncated by words.
 `powerline_taskwarrior.next_task` segment accepts `ignore_active` parameter. If it set to `true` segment will be shown
