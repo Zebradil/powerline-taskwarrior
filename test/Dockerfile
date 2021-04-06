@@ -1,8 +1,14 @@
-FROM alpine
+ARG PYTHON_VERSION
+FROM python:${PYTHON_VERSION}
 
-RUN apk add --no-cache task python3 py2-pip \
- && yes yes|task version
+WORKDIR /app
 
-COPY test.sh /test.sh
+RUN apt-get update \
+ && apt-get install taskwarrior \
+ && yes yes | task version
 
-CMD ["/test.sh"]
+COPY . .
+
+RUN pip install .
+
+RUN /app/test/test.sh
