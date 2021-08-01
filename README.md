@@ -86,11 +86,13 @@ Add the following to your colorschemes (`.config/powerline/colorschemes/default.
 
 ```json
 {
-  "taskwarrior:context":       "information:regular",
-  "taskwarrior:active_id":     { "bg": "mediumgreen", "fg": "black", "attrs": [] },
-  "taskwarrior:active_desc":   { "bg": "green", "fg": "black", "attrs": [] },
-  "taskwarrior:next_id":       { "bg": "brightyellow", "fg": "black", "attrs": [] },
-  "taskwarrior:next_desc":     { "bg": "yellow", "fg": "black", "attrs": [] }
+  "groups": {
+    "taskwarrior:context": "information:regular",
+    "taskwarrior:active_id": { "bg": "mediumgreen", "fg": "black", "attrs": [] },
+    "taskwarrior:active_desc": { "bg": "green", "fg": "black", "attrs": [] },
+    "taskwarrior:next_id": { "bg": "brightyellow", "fg": "black", "attrs": [] },
+    "taskwarrior:next_desc": { "bg": "yellow", "fg": "black", "attrs": [] }
+  }
 }
 
 ```
