@@ -1,6 +1,6 @@
 # Powerline Taskwarrior
 
-[![Build Status](https://travis-ci.org/Zebradil/powerline-taskwarrior.svg?branch=master)](https://travis-ci.org/Zebradil/powerline-taskwarrior)
+![CI](https://github.com/zebradil/powerline-taskwarrior/actions/workflows/ci.yml/badge.svg)
 [![PyPI](https://img.shields.io/pypi/v/powerline-taskwarrior.svg)](https://pypi.python.org/pypi/powerline-taskwarrior)
 [![PyPI](https://img.shields.io/pypi/l/powerline-taskwarrior.svg)](https://opensource.org/licenses/MIT)
 
