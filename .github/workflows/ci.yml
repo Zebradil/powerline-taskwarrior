@@ -49,7 +49,7 @@ jobs:
         run: ./test/test.sh
 
   release:
-    # if: ${{ startsWith(github.event.ref, 'refs/tags/') }}
+    if: ${{ startsWith(github.event.ref, 'refs/tags/') }}
     needs: test
     runs-on: ubuntu-latest
     env:
