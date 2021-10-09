@@ -8,12 +8,13 @@ on:
     #   - '*'
 
 jobs:
+  test:
+    uses: ${{ github.repository }}/.github/workflows/test.yml@${{ github.sha }}
+
   release:
+    needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Tests
-        uses: ${{ github.repository }}/.github/workflows/test.yml@${{ github.sha }}
-
       - name: Check out repository
         uses: actions/checkout@v2
 
