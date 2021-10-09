@@ -5,7 +5,7 @@ set -o errexit -o pipefail -o noclobber -o nounset
 TASK_TEXT=$(openssl rand -hex 16)
 task add $TASK_TEXT
 
-export XDG_CONFIG_DIRS=/app/test/.config
+export XDG_CONFIG_DIRS="$(dirname -- "${BASH_SOURCE[0]}")/.config"
 
 LOG_FILE=/tmp/powerline-error.log
 
