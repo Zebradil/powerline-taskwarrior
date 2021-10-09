@@ -8,6 +8,11 @@ on:
     #   - '*'
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ github.repository }}/.github/workflows/test.yml@${{ github.sha }}
+
   test:
     uses: ${{ github.repository }}/.github/workflows/test.yml@${{ github.sha }}
 
