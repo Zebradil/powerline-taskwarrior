@@ -2,10 +2,13 @@
 
 set -o errexit -o pipefail -o noclobber -o nounset
 
-TASK_TEXT=$(date | md5sum | head -c 16)
+TASK_TEXT=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 16)
 task add $TASK_TEXT
+
 export XDG_CONFIG_DIRS=/app/test/.config
+
 LOG_FILE=/tmp/powerline-error.log
+
 if [[ "$(powerline shell right | tee $LOG_FILE | fgrep -c $TASK_TEXT)" -eq 1 ]]; then
   exit 0
 else
