@@ -13,11 +13,11 @@ jobs:
     steps:
       - run: echo ${{ github.repository }}/.github/workflows/test.yml@${{ github.sha }}
 
-  test:
-    uses: ${{ github.repository }}/.github/workflows/test.yml@${{ github.sha }}
+  # test:
+  #   uses: ${{ github.repository }}/.github/workflows/test.yml@${{ github.sha }}
 
   release:
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
