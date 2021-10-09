@@ -2,6 +2,8 @@
 
 set -o errexit -o pipefail -o noclobber -o nounset
 
+set +x
+
 TASK_TEXT=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 16)
 task add $TASK_TEXT
 
