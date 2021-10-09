@@ -2,9 +2,7 @@
 
 set -o errexit -o pipefail -o noclobber -o nounset
 
-set +x
-
-TASK_TEXT=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 16)
+TASK_TEXT=$(openssl rand -hex 16)
 task add $TASK_TEXT
 
 export XDG_CONFIG_DIRS=/app/test/.config
