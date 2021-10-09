@@ -12,6 +12,8 @@ jobs:
       matrix:
         python_version: [2, 3]
     steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       - name: Build test image
         uses: docker/build-push-action@v2
         with:
