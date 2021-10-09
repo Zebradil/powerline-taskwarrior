@@ -52,6 +52,8 @@ jobs:
     # if: ${{ startsWith(github.event.ref, 'refs/tags/') }}
     needs: test
     runs-on: ubuntu-latest
+    env:
+      POETRY_VERSION: '1.1.8'
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -61,8 +63,17 @@ jobs:
         with:
           python-version: 3.9
 
+      - name: Load cached pip packages
+        id: cached-pip-dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-${{ env.POETRY_VERSION }}
+
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.1.3
+        with:
+          poetry-version: ${{ env.POETRY_VERSION }}
 
       - name: Release
         run: |
