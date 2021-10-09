@@ -1,6 +1,7 @@
 {
   "groups": {
     "taskwarrior:context": "information:regular",
+    "taskwarrior:pending_tasks_count": "information:priority",
     "taskwarrior:active_id": {
       "bg": "mediumgreen",
       "fg": "black",

@@ -1,6 +1,7 @@
 {
   "segments": {
-    "right": [{
+    "right": [
+      {
         "function": "powerline_taskwarrior.next_task",
         "priority": 70,
         "args": {
@@ -20,6 +21,10 @@
       },
       {
         "function": "powerline_taskwarrior.taskwarrior",
+        "priority": 70
+      },
+      {
+        "function": "powerline_taskwarrior.pending_tasks_count",
         "priority": 70
       }
     ]

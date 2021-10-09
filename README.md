@@ -41,43 +41,47 @@ See more about powerline configuration in [the official documentation][7].
 For example, I store powerline configuration in
 `~/.config/powerline/themes/shell/default.json`.
 
-These are avalable powerline-taskwarrior segments:
+These are available powerline-taskwarrior segments:
 
-display current context name
+- display current context name
+  ```json
+  {
+      "function": "powerline_taskwarrior.context",
+      "priority": 70
+  }
+  ```
 
-```json
-{
-    "function": "powerline_taskwarrior.context",
-    "priority": 70
-}
-```
+- display the count of pending tasks
+  ```json
+  {
+      "function": "powerline_taskwarrior.pending_tasks_count",
+      "priority": 70
+  }
+  ```
 
-display the most urgent active task
+- display the most urgent active task
+  ```json
+  {
+      "function": "powerline_taskwarrior.active_task",
+      "priority": 70
+  }
+  ```
 
-```json
-{
-    "function": "powerline_taskwarrior.active_task",
-    "priority": 70
-}
-```
+- display the most urgent next task
+  ```json
+  {
+      "function": "powerline_taskwarrior.next_task",
+      "priority": 70
+  }
+  ```
 
-display the most urgent next task
-
-```json
-{
-    "function": "powerline_taskwarrior.next_task",
-    "priority": 70
-}
-```
-
-*obsolete* segment displays both of listed above
-
-```json
-{
-    "function": "powerline_taskwarrior.taskwarrior",
-    "priority": 70
-}
-```
+- *obsolete* segment displays both of listed above
+  ```json
+  {
+      "function": "powerline_taskwarrior.taskwarrior",
+      "priority": 70
+  }
+  ```
 
 ### Color scheme
 
@@ -88,6 +92,7 @@ Add the following to your colorschemes (`.config/powerline/colorschemes/default.
 {
   "groups": {
     "taskwarrior:context": "information:regular",
+    "taskwarrior:pending_tasks_count": "information:priority",
     "taskwarrior:active_id": { "bg": "mediumgreen", "fg": "black", "attrs": [] },
     "taskwarrior:active_desc": { "bg": "green", "fg": "black", "attrs": [] },
     "taskwarrior:next_id": { "bg": "brightyellow", "fg": "black", "attrs": [] },

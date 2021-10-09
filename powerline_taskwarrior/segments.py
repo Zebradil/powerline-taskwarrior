@@ -81,7 +81,7 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
 
             return [{
                 'name': 'active_task_id',
-                'contents': self.task_id,
+                'contents': '#%s' % self.task_id,
                 'highlight_groups': [
                     'taskwarrior:{state}_id'.format(state=self.state)
                  ],
@@ -160,6 +160,29 @@ class NextTaskSegment(ActiveTaskSegment):
         ]
 
 
+class PendingTasksCountSegment(TaskwarriorBaseSegment):
+    def build_segments(self):
+        self.pl.debug('Build PendingTasksCount segment')
+
+        pending_tasks_count, err = self.execute([
+            self.task_alias,
+            'rc.verbose:',
+            'rc.hooks:off',
+            'status:pending',
+            'count'
+        ])
+
+        if not err and pending_tasks_count:
+            pending_tasks_count = pending_tasks_count.pop(0)
+            if pending_tasks_count:
+                return [{
+                    'contents': '[%s]' % pending_tasks_count,
+                    'highlight_groups': ['taskwarrior:context'],
+                }]
+
+        return []
+
+
 class TaskwarriorSegment(TaskwarriorBaseSegment):
     def build_segments(self):
         self.pl.debug('Build ActiveTask + Context segment')
@@ -198,6 +221,15 @@ next_task = with_docstring(
     '''Return information from Taskwarrior task manager.
 
     It will show next task (first by urgency order).
+
+    Highlight groups used: ``taskwarrior:next_id``, ``taskwarrior:next_desc``
+    ''')
+
+pending_tasks_count = with_docstring(
+    PendingTasksCountSegment(),
+    '''Return information from Taskwarrior task manager.
+
+    It will show count of pending tasks.
 
     Highlight groups used: ``taskwarrior:next_id``, ``taskwarrior:next_desc``
     ''')
