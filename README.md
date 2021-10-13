@@ -108,7 +108,7 @@ See [powerline colorschemes docs][6] for more details.
 
 ### Further customization
 
-If you have a custom name for `task` command, it should be specified in the segment configuration.
+If you have a custom name for `task` command, it should be specified via `task_alias` argument in the segment configuration.
 
 `powerline_taskwarrior.active_task` and `powerline_taskwarrior.next_task` segments accept `description_length` parameter.
 It is an integer which represents a maximum length of the description field.
@@ -122,7 +122,7 @@ If it set to `true`, the segment will be shown always, regardless of existence o
     "function": "powerline_taskwarrior.next_task",
     "priority": 70,
     "args": {
-        "task": "taskwarrior",
+        "task_alias": "taskwarrior",
         "description_length": 40
     }
 }
