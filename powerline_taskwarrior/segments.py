@@ -1,5 +1,6 @@
 # vim:fileencoding=utf-8:noet
 import string
+import shutil
 from subprocess import PIPE, Popen
 
 from powerline.segments import Segment, with_docstring
@@ -10,6 +11,20 @@ from powerline.theme import requires_segment_info
 class TaskwarriorBaseSegment(Segment):
     pl = None
     task_alias = "task"
+
+    def validate_task_alias(self, task_alias):
+        if not task_alias:
+            self.pl.error("task_alias is empty")
+            return False
+
+        if shutil.which(task_alias) is None:
+            self.pl.error("%s is not executable" % task_alias)
+            return False
+
+        return True
+
+    def validate_task_initialized(self):
+        pass
 
     def execute(self, command):
         self.pl.debug("Executing command: %s" % " ".join(command))
@@ -31,9 +46,9 @@ class TaskwarriorBaseSegment(Segment):
     def __call__(self, pl, segment_info, task_alias="task"):
         self.pl = pl
         self.task_alias = task_alias
-        pl.debug("Running Taskwarrior: " + task_alias)
+        pl.debug("Taskwarrior alias: %s" % task_alias)
 
-        if not task_alias:
+        if not self.validate_task_alias(task_alias):
             return
 
         return self.build_segments()
@@ -67,17 +82,12 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
     def __call__(
         self, pl, segment_info, task_alias="task", description_length=40, state="active"
     ):
-        self.pl = pl
-        self.task_alias = task_alias
         self.state = state
-        pl.debug("Running Taskwarrior: " + task_alias)
+        self.description_length = description_length
 
-        if not task_alias:
-            return
+        return super(ActiveTaskSegment, self).__call__(pl, segment_info, task_alias)
 
-        return self.build_segments(description_length)
-
-    def build_segments(self, description_length=0):
+    def build_segments(self):
         self.pl.debug("Build ActiveTask segment")
 
         task = self.get_task()
@@ -96,7 +106,7 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
                 {
                     "name": "active_task_description",
                     "contents": self.cut_description(
-                        self.description, description_length
+                        self.description, self.description_length
                     ),
                     "highlight_groups": [
                         "taskwarrior:{state}_desc".format(state=self.state)
@@ -136,6 +146,7 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
     def get_command_parts(self):
         return [
             self.task_alias,
+            "rc.exit.on.missing.db=1",
             "rc.verbose:",
             "rc.hooks:off",
             "rc.report.next.columns:id,description",
@@ -156,7 +167,10 @@ class NextTaskSegment(ActiveTaskSegment):
         ignore_active=False,
     ):
         self.pl = pl
-        self.task_alias = task_alias
+
+        if not self.validate_task_alias(task_alias):
+            return
+
         if ignore_active or not self.exists_active_task():
             return super(NextTaskSegment, self).__call__(
                 pl, segment_info, task_alias, description_length, state="next"
@@ -171,6 +185,7 @@ class NextTaskSegment(ActiveTaskSegment):
     def get_command_parts(self):
         return [
             self.task_alias,
+            "rc.exit.on.missing.db=1",
             "rc.verbose:",
             "rc.hooks:off",
             "rc.report.next.columns:id,description",
@@ -185,7 +200,14 @@ class PendingTasksCountSegment(TaskwarriorBaseSegment):
         self.pl.debug("Build PendingTasksCount segment")
 
         pending_tasks_count, err = self.execute(
-            [self.task_alias, "rc.verbose:", "rc.hooks:off", "status:pending", "count"]
+            [
+                self.task_alias,
+                "rc.exit.on.missing.db=1",
+                "rc.verbose:",
+                "rc.hooks:off",
+                "status:pending",
+                "count",
+            ]
         )
 
         if not err and pending_tasks_count:

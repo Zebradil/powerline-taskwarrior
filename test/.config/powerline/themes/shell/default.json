@@ -1,32 +1,32 @@
 {
-  "segments": {
-    "right": [
-      {
-        "function": "powerline_taskwarrior.next_task",
-        "priority": 70,
-        "args": {
-          "description_length": 40
-        }
-      },
-      {
-        "function": "powerline_taskwarrior.active_task",
-        "priority": 70,
-        "args": {
-          "description_length": 40
-        }
-      },
-      {
-        "function": "powerline_taskwarrior.context",
-        "priority": 70
-      },
-      {
-        "function": "powerline_taskwarrior.taskwarrior",
-        "priority": 70
-      },
-      {
-        "function": "powerline_taskwarrior.pending_tasks_count",
-        "priority": 70
-      }
-    ]
-  }
+    "segments": {
+        "right": [
+            {
+                "function": "powerline_taskwarrior.next_task",
+                "priority": 70,
+                "args": {
+                    "description_length": 40
+                }
+            },
+            {
+                "function": "powerline_taskwarrior.active_task",
+                "priority": 70,
+                "args": {
+                    "description_length": 40
+                }
+            },
+            {
+                "function": "powerline_taskwarrior.context",
+                "priority": 70
+            },
+            {
+                "function": "powerline_taskwarrior.taskwarrior",
+                "priority": 70
+            },
+            {
+                "function": "powerline_taskwarrior.pending_tasks_count",
+                "priority": 70
+            }
+        ]
+    }
 }
