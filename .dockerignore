@@ -1,0 +1,6 @@
+*
+!powerline_taskwarrior/*
+!test/*
+!pyproject.toml
+!poetry.lock
+!README.md
