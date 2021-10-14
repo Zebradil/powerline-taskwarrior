@@ -3,7 +3,7 @@
 set -o errexit -o pipefail -o noclobber -o nounset
 
 # Initialize Taskwarrior database
-yes yes | task version
+echo yes | task version
 
 TASK_TEXT=$(openssl rand -hex 16)
 task add $TASK_TEXT
