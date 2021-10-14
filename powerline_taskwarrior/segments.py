@@ -82,8 +82,8 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
     def __call__(
         self, pl, segment_info, task_alias="task", description_length=40, state="active"
     ):
-        self.state = state
         self.description_length = description_length
+        self.state = state
 
         return super(ActiveTaskSegment, self).__call__(pl, segment_info, task_alias)
 
@@ -114,6 +114,7 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
                 },
             ]
         else:
+            self.pl.debug("No tasks")
             return []
 
     def truncate(self, pl, amount, segment, description_length=0, **kwargs):
@@ -141,6 +142,7 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
         id_and_description, err = self.execute(self.get_command_parts())
 
         if not err and id_and_description:
+            self.pl.debug(id_and_description)
             return id_and_description.pop(0).split(" ", 1)
 
     def get_command_parts(self):
