@@ -37,7 +37,7 @@ class TaskwarriorBaseSegment(Segment):
         if err:
             self.pl.debug("Command errors: %s" % err.strip(string.whitespace))
 
-        return out.splitlines(), err.splitlines()
+        return out.splitlines(), proc.returncode != 0
 
     def build_segments(self):
         self.pl.debug("Nothing to do")
