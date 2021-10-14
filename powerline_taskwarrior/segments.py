@@ -148,8 +148,7 @@ class ActiveTaskSegment(TaskwarriorBaseSegment):
     def get_command_parts(self):
         return [
             self.task_alias,
-            "rc.exit.on.missing.db=1",
-            "rc.verbose:",
+            "rc.verbose:nothing",
             "rc.hooks:off",
             "rc.report.next.columns:id,description",
             "rc.report.next.labels:1,2",
@@ -187,8 +186,7 @@ class NextTaskSegment(ActiveTaskSegment):
     def get_command_parts(self):
         return [
             self.task_alias,
-            "rc.exit.on.missing.db=1",
-            "rc.verbose:",
+            "rc.verbose:nothing",
             "rc.hooks:off",
             "rc.report.next.columns:id,description",
             "rc.report.next.labels:1,2",
@@ -204,8 +202,7 @@ class PendingTasksCountSegment(TaskwarriorBaseSegment):
         pending_tasks_count, err = self.execute(
             [
                 self.task_alias,
-                "rc.exit.on.missing.db=1",
-                "rc.verbose:",
+                "rc.verbose:nothing",
                 "rc.hooks:off",
                 "status:pending",
                 "count",
