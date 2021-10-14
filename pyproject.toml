@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "powerline-taskwarrior"
-version = "1.0.2"
+version = "2.0.0"
 description = "Powerline segments for showing information from the Taskwarrior task manager"
 authors = ["German Lashevich <german.lashevich@gmail.com>"]
 license = "MIT"
