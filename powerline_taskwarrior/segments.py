@@ -23,13 +23,13 @@ class TaskwarriorBaseSegment(Segment):
 
         return True
 
-    def validate_task_initialized(self):
-        pass
-
     def execute(self, command):
         self.pl.debug("Executing command: %s" % " ".join(command))
 
-        proc = Popen(command, stdout=PIPE, stderr=PIPE)
+        proc = Popen(command, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+        # Taskwarrior doesn't have non-interactive mode,
+        # provide some input in case it asks for something
+        proc.stdin.write(b"")
         out, err = [item.decode("utf-8") for item in proc.communicate()]
 
         if out:
