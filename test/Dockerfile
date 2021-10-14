@@ -14,4 +14,6 @@ COPY . .
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install .
 
-RUN /app/test/test.sh
+ENTRYPOINT [ "/bin/bash", "-c" ]
+
+CMD [ "/app/test/test.sh" ]
