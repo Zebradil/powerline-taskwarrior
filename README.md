@@ -12,7 +12,9 @@ It shows a current context and the most urgent active task.
 
 ## Requirements
 
-Taskwarrior segments require [task][2] v2.4.2 or later.
+Taskwarrior segments require:
+- [task][2] v2.4.2 or later,
+- Python `^3.7` (support for Python 2.7 was dropped)
 
 ## Installation
 

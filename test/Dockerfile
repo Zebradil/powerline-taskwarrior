@@ -1,7 +1,6 @@
 # syntax=docker/dockerfile:experimental
 
-ARG PYTHON_VERSION
-FROM python:${PYTHON_VERSION}
+FROM python:3
 
 WORKDIR /app
 
