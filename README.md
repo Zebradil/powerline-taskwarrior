@@ -18,6 +18,12 @@ Taskwarrior segments require:
 
 ## Installation
 
+### AUR
+
+```sh
+yay -S python-powerline-taskwarrior
+```
+
 ### PIP
 
 ```sh
