@@ -28,7 +28,7 @@ powerline-status = "^2.7"
 [tool.poetry.dev-dependencies]
 black = { version = "^21.9b0", python = "^3.9" }
 isort = { version = "^5.9.3", python = "^3.9" }
-semgrep = { version = "^0.68.2", python = "^3.9" }
+semgrep = { version = "^0.118.0", python = "^3.9" }
 
 
 [build-system]
