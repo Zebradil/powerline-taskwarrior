@@ -357,7 +357,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "semgrep"
-version = "0.120.0"
+version = "0.123.0"
 description = "Lightweight static analysis for many languages. Find bug variants with patterns that look like source code."
 category = "dev"
 optional = false
@@ -474,7 +474,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "40df1dc761cdb417e78d21d412e4b58ae12f18f7a9673f1adcdc66f833d4972d"
+content-hash = "c5db49ae8596a699eee880613d0567f143827a57535fccdcac2fc9baad938035"
 
 [metadata.files]
 attrs = [
@@ -665,10 +665,10 @@ ruamel-yaml-clib = [
     {file = "ruamel.yaml.clib-0.2.7.tar.gz", hash = "sha256:1f08fd5a2bea9c4180db71678e850b995d2a5f4537be0e94557668cf0f5f9497"},
 ]
 semgrep = [
-    {file = "semgrep-0.120.0-cp37.cp38.cp39.py37.py38.py39-none-any.whl", hash = "sha256:5ed3bd9a0d34cdf139998d8a88312518b1ff8f33fc4471e67b04ca67d98b96a3"},
-    {file = "semgrep-0.120.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_10_14_x86_64.whl", hash = "sha256:b1237ab26de9310aa0299a5f4d89d6c044f6a7dd9b620f4b23cae16a00e6a553"},
-    {file = "semgrep-0.120.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_11_0_arm64.whl", hash = "sha256:7ecd068270200c5ea61041b854f730b0be2dd7b9b2d03d1ae330577015796538"},
-    {file = "semgrep-0.120.0.tar.gz", hash = "sha256:0a880e3cec1772003269b5f801f82cbd9076c12ecf22e39619555146b78fc464"},
+    {file = "semgrep-0.123.0-cp37.cp38.cp39.py37.py38.py39-none-any.whl", hash = "sha256:241d9c6342279a0d9eda0c63d66a49df9fd319843558676ec80251d8dc936936"},
+    {file = "semgrep-0.123.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_10_14_x86_64.whl", hash = "sha256:8d796877006cecb3da9c4c211a941c04ee605acf409fda435bea59bb011f7187"},
+    {file = "semgrep-0.123.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_11_0_arm64.whl", hash = "sha256:993455e06867a02bf4a342c3c2d57f70a8df450a83dd80773d583e8bc0c56ea6"},
+    {file = "semgrep-0.123.0.tar.gz", hash = "sha256:cf10b567346df79aec18d9042a2ccc275f9404a6619836ed5fe95016470707f0"},
 ]
 tomli = [
     {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
