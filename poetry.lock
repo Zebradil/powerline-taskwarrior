@@ -613,16 +613,16 @@ files = [
 
 [[package]]
 name = "semgrep"
-version = "1.17.1"
+version = "1.18.0"
 description = "Lightweight static analysis for many languages. Find bug variants with patterns that look like source code."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "semgrep-1.17.1-cp37.cp38.cp39.py37.py38.py39-none-any.whl", hash = "sha256:f3baa5fe8f55c8e92d1e6b577bde34e5e014a96019a38fd26ee23fde397ae4ae"},
-    {file = "semgrep-1.17.1-cp37.cp38.cp39.py37.py38.py39-none-macosx_10_14_x86_64.whl", hash = "sha256:e3048ed452e46e47ddedfbbc60af3e7a5e5a6d5ee09df970c570e4b625896167"},
-    {file = "semgrep-1.17.1-cp37.cp38.cp39.py37.py38.py39-none-macosx_11_0_arm64.whl", hash = "sha256:bcedebd65a914cd593f3649fa52fbb935333c955c445aa58114e16076f184ca8"},
-    {file = "semgrep-1.17.1.tar.gz", hash = "sha256:eb87ea9266bbabccaacac6975e5f084198a54db57f5c255acb3c5921d6a7a66d"},
+    {file = "semgrep-1.18.0-cp37.cp38.cp39.py37.py38.py39-none-any.whl", hash = "sha256:5fd51ef4f9878e979278ade357e429cc3dcd13990d2d41506371bd60386c6219"},
+    {file = "semgrep-1.18.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_10_14_x86_64.whl", hash = "sha256:a7ee92223c498528a43ca6364272fe984ed9457a69d3d616ce2edd9ca154b174"},
+    {file = "semgrep-1.18.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_11_0_arm64.whl", hash = "sha256:a9692a0103bec4c4d525b045ebbd06b7114a6fa400cd38efbc8a1c0d9f336e04"},
+    {file = "semgrep-1.18.0.tar.gz", hash = "sha256:30763d1d553b71c0aa448a03be49cd7ed8664002c4e718759ac58f69aa5b3eb0"},
 ]
 
 [package.dependencies]
