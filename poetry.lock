@@ -580,15 +580,15 @@ files = [
 
 [[package]]
 name = "semgrep"
-version = "1.30.0"
+version = "1.31.0"
 description = "Lightweight static analysis for many languages. Find bug variants with patterns that look like source code."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "semgrep-1.30.0-cp37.cp38.cp39.cp310.cp311.py37.py38.py39.py310.py311-none-any.whl", hash = "sha256:e0c91a5d0e797dbb3ff714c0282bbf8f035f21897bf4cfd015f039c7d549ae21"},
-    {file = "semgrep-1.30.0-cp37.cp38.cp39.cp310.cp311.py37.py38.py39.py310.py311-none-macosx_10_14_x86_64.whl", hash = "sha256:478ff7dac08791b9e6b1ed9db8358b65bb8337009c7756b2cc2f74138b3f99f3"},
-    {file = "semgrep-1.30.0-cp37.cp38.cp39.cp310.cp311.py37.py38.py39.py310.py311-none-macosx_11_0_arm64.whl", hash = "sha256:43efa2fbce6c87be3eb6b751abff81c01faee51b2c25301f6c59576453e156e2"},
-    {file = "semgrep-1.30.0.tar.gz", hash = "sha256:603d1b59fe2368f52ed1bf569f072bfe3aac8e54da2d180fefe0b03564005bb6"},
+    {file = "semgrep-1.31.0-cp37.cp38.cp39.cp310.cp311.py37.py38.py39.py310.py311-none-any.whl", hash = "sha256:0b833697d76ae8818a7192801ba1d798ab65897e19c20aaebde12f88bb79dc15"},
+    {file = "semgrep-1.31.0-cp37.cp38.cp39.cp310.cp311.py37.py38.py39.py310.py311-none-macosx_10_14_x86_64.whl", hash = "sha256:0a9a7c14e62513d5e3489084c973cd2beeb480f0edcba483490b1a280fbe77ab"},
+    {file = "semgrep-1.31.0-cp37.cp38.cp39.cp310.cp311.py37.py38.py39.py310.py311-none-macosx_11_0_arm64.whl", hash = "sha256:08bf87001be9c65737f055c72704d20815e04855a466ab1e68483df707412869"},
+    {file = "semgrep-1.31.0.tar.gz", hash = "sha256:d67b7f51497c37c5b8e92e47f8567ab478b45348138fd45c45cf8ddd184f04ea"},
 ]
 
 [package.dependencies]
