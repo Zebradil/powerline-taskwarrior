@@ -15,14 +15,14 @@ keywords = [
     "taskwarrior-segment",
     "powerline-taskwarrior",
 ]
-classifiers=[
+classifiers = [
     "Environment :: Console",
     "Intended Audience :: Developers",
     "Topic :: Terminals",
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 powerline-status = "^2.7"
 
 [tool.poetry.group.dev.dependencies]
