@@ -27,7 +27,7 @@ powerline-status = "^2.7"
 
 [tool.poetry.group.dev.dependencies]
 black = ">=26,<27"
-isort = "^8.0.0"
+isort = "^9.0.0"
 semgrep = "^1.0.0"
 
 [build-system]
